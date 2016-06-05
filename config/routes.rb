@@ -1,4 +1,57 @@
 Rails.application.routes.draw do
+  # Routes for the Bloque resource:
+  # CREATE
+  get "/bloques/new", :controller => "bloques", :action => "new"
+  post "/create_bloque", :controller => "bloques", :action => "create"
+
+  # READ
+  get "/bloques", :controller => "bloques", :action => "index"
+  get "/bloques/:id", :controller => "bloques", :action => "show"
+
+  # UPDATE
+  get "/bloques/:id/edit", :controller => "bloques", :action => "edit"
+  post "/update_bloque/:id", :controller => "bloques", :action => "update"
+
+  # DELETE
+  get "/delete_bloque/:id", :controller => "bloques", :action => "destroy"
+  #------------------------------
+
+  root "submissions#index"
+
+  # CREATE
+  get "/submissions/new", :controller => "submissions", :action => "new"
+  post "/create_submission", :controller => "submissions", :action => "create"
+
+  # READ
+  get "/submissions", :controller => "submissions", :action => "index"
+  get "/submissions/:id", :controller => "submissions", :action => "show"
+
+  # UPDATE
+  get "/submissions/:id/edit", :controller => "submissions", :action => "edit"
+  post "/update_submission/:id", :controller => "submissions", :action => "update"
+
+  # DELETE
+  get "/delete_submission/:id", :controller => "submissions", :action => "destroy"
+  #------------------------------
+
+  # Routes for the Task resource:
+  # CREATE
+  get "/tasks/new", :controller => "tasks", :action => "new"
+  post "/create_task", :controller => "tasks", :action => "create"
+
+  # READ
+  get "/tasks", :controller => "tasks", :action => "index"
+  get "/tasks/:id", :controller => "tasks", :action => "show"
+
+  # UPDATE
+  get "/tasks/:id/edit", :controller => "tasks", :action => "edit"
+  post "/update_task/:id", :controller => "tasks", :action => "update"
+
+  # DELETE
+  get "/delete_task/:id", :controller => "tasks", :action => "destroy"
+  #------------------------------
+
+  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
