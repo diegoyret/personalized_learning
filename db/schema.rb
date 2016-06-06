@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160605175626) do
+ActiveRecord::Schema.define(version: 20160606181529) do
 
   create_table "bloques", force: :cascade do |t|
     t.string   "name"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 20160605175626) do
     t.string   "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "content"
+    t.string   "url"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -45,6 +47,9 @@ ActiveRecord::Schema.define(version: 20160605175626) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "bloque_id"
+    t.string   "video_url"
+    t.string   "external1"
+    t.string   "external2"
   end
 
   create_table "users", force: :cascade do |t|

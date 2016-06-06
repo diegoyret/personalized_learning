@@ -16,15 +16,19 @@
 
         <th>User</th>
 
+        <th>Graded</th>
         <th>Actions</th>
+
       </tr>
 
       <% @submissions.each do |submission| %>
       <tr>
 
-        <td><%= submission.task_id %></td>
+        <td><%= submission.task.name %></td>
 
-        <td><%= submission.user_id %></td>
+        <td><%= submission.user.name %></td>
+        <td><%= submission.task.graded %></td>
+
 
         <td>
 

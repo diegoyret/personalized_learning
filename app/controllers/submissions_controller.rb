@@ -4,7 +4,7 @@ class SubmissionsController < ApplicationController
   end
   def welcome
     @user = current_user
-    @a = [0]
+    @a = []
   end
   def show
     @submission = Submission.find(params[:id])
@@ -20,8 +20,8 @@ class SubmissionsController < ApplicationController
     @submission.task_id = params[:task_id]
 
     @submission.user_id = params[:user_id]
-
-
+    @submission.content= params[:content]
+    @submission.url= params[:url]
 
     if @submission.save
       redirect_to "/submissions", :notice => "Submission created successfully."

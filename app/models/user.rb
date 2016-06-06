@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-has_many :submissions,:class_name => "Submission", :foreign_key => "user_id"
-has_many :tasks, :through => :submissions,:foreign_key => "user_id"
-has_many :submitted_tasks, :through => :submissions, :source => :task
+  has_many :submissions,:class_name => "Submission", :foreign_key => "user_id"
+  has_many :tasks, :through => :submissions,:foreign_key => "user_id"
+  has_many :submitted_tasks, :through => :submissions, :source => :task
 end

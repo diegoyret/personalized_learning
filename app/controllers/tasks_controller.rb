@@ -5,6 +5,19 @@ class TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
+    @user=current_user
+    @submission = Submission.new
+
+    @submission.task_id = params[:task_id]
+
+    @submission.user_id = params[:user_id]
+
+
+
+    if @submission.save
+      redirect_to "/welcome", :notice => "Submission created successfully."
+
+    end
   end
 
   def new

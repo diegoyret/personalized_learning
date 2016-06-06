@@ -1,25 +1,20 @@
 <div class="page-header">
-  <h3>Task #<%= @task.id %></h3>
-</div>
+  <h1><%= @task.name %></h1>
+  </div>
 
 <div class="row">
   <div class="col-md-12">
     <dl class="dl-horizontal">
 
       <dt>Module</dt>
-      <dd><%= @task.module_id %></dd>
-
-
-      <dt>Name</dt>
-      <dd><%= @task.name %></dd>
+      <dd><%= @task.bloque.name %> (<%= @task.bloque_id %>)</dd>
 
 
       <dt>Description</dt>
       <dd><%= @task.description %></dd>
 
 
-      <dt>Type</dt>
-      <dd><%= @task.type %></dd>
+
 
 
       <dt>Graded</dt>
@@ -49,5 +44,85 @@
       </a>
 
     </div>
+  </div>
+</div>
+<% if @submission.errors.any? %>
+  <% @submission.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-warning">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Submit "<%= @task.name %>"</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <form action="/create_submission" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+
+
+      <!-- Label and input for task_id -->
+
+      <div class="form-group">
+        <label for="task_id" class="control-label">
+
+        </label>
+
+
+        <input type="hidden" id="task_id" name="task_id" placeholder="Task" class="form-control" value="<%= @task.id %>">
+
+      </div>
+
+
+
+      <!-- Label and input for user_id -->
+
+      <div class="form-group">
+        <label for="user_id" class="control-label">
+
+        </label>
+
+
+        <input type="hidden" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @user.id %>">
+
+      </div>
+
+      <div class="form-group">
+        <label for="content" class="control-label">
+        Submission Box
+        </label>
+
+
+        <input type="text" id="content" name="content" placeholder="Comment on the main challenges you encountered and the aproximate time it took you to finish" class="form-control" value="<%= @submission.content %>">
+
+      </div>
+      <div class="form-group">
+        <label for="content" class="control-label">
+        Github URL
+        </label>
+
+
+        <input type="string" id="url" name="url" placeholder="Past the link of your Github pull request" class="form-control" value="<%= @submission.url %>">
+
+      </div>
+
+
+      <button class="btn btn-success">
+        Submit "<%= @task.name %>"
+      </button>
+      or
+
+      <a href="/submissions/<%= @submission.id %>">Cancel</a>
+
+
+    </form>
+
   </div>
 </div>
