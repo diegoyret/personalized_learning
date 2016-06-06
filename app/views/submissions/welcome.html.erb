@@ -1,0 +1,41 @@
+      <%@user.submitted_tasks.each do |task| %>
+
+      <%@a.push(task.id) %>
+      <% end %>
+      <%@a%>
+
+      <%if @a==[0]%>
+      <h3>Welcome to APP Development!, You should start by understanding why is important to learn how code!</h3>
+      <h4>Please watch this video</h4>
+      <a href="https://www.youtube.com/watch?v=rtl9QG4qe6g">Why Code Literacy is important</a>
+      <h4>After watching that video, please do </h4>
+      <a href="https://<%=Task.where({ :id => 1 }).pluck(:url) %>" class="btn btn-link">
+        <!-- I want to go to an external link -->
+        <%=Task.where({ :id => 1 }).pluck(:name) %></a>
+        <% else %>
+        <h3>
+          You already finished
+        </h3>
+        <%@a.each do |num| %>
+        <ul>
+
+          <a href="https://<%=Task.where({ :id => num }).pluck(:url)%>" class="btn btn-link">
+            <!-- I want to go to an external link -->
+            <%=Task.where({ :id => num }).pluck(:name) %></a>
+
+            <%=Submission.where({ :id => num,:user_id=>@user.id }).pluck(:created_at)%> ago
+            <!-- time_ago in words not working -->
+          </ul>
+
+          <% end %>
+          <% end %>
+          <h2>
+
+            Now you are ready to do
+          </h2>
+          <h4>
+            <%=Task.where({ :id => @a.max+1}).pluck(:name) %>
+          </h4>
+          <p>
+            <%=Task.where({ :id => @a.max+1}).pluck(:description) %>
+          </p>

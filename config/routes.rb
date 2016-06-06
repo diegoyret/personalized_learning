@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # Routes for the Bloque resource:
+
   # CREATE
   get "/bloques/new", :controller => "bloques", :action => "new"
   post "/create_bloque", :controller => "bloques", :action => "create"
@@ -16,7 +17,7 @@ Rails.application.routes.draw do
   get "/delete_bloque/:id", :controller => "bloques", :action => "destroy"
   #------------------------------
 
-  root "submissions#index"
+  root "submissions#welcome"
 
   # CREATE
   get "/submissions/new", :controller => "submissions", :action => "new"
@@ -32,6 +33,9 @@ Rails.application.routes.draw do
 
   # DELETE
   get "/delete_submission/:id", :controller => "submissions", :action => "destroy"
+  # DASHBOARD
+  get "/welcome", :controller => "submissions", :action => "welcome"
+
   #------------------------------
 
   # Routes for the Task resource:
@@ -52,6 +56,7 @@ Rails.application.routes.draw do
   #------------------------------
 
   devise_for :users
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

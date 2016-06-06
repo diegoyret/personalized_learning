@@ -2,7 +2,10 @@ class SubmissionsController < ApplicationController
   def index
     @submissions = Submission.all
   end
-
+  def welcome
+    @user = current_user
+    @a = [0]
+  end
   def show
     @submission = Submission.find(params[:id])
   end
