@@ -7,16 +7,17 @@
 
       <%@a.push(task.id) %>
       <% end %>
-      <%=@a%>
-
-      <%if @a==nil%>
+      <%=@a.any?%>
+      <%if @a.max==Task.count('id', :distinct => true)%>
+      <h1>Congratulations! You are a Full Stack Web Developer!!</h1>
+      <%elsif (@a.any?)==false%>
       <h3>Welcome to APP Development!, You should start by understanding why is important to learn how code!</h3>
       <h4>Please watch this video</h4>
-      <a href="https://www.youtube.com/watch?v=rtl9QG4qe6g">Why Code Literacy is important</a>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/rtl9QG4qe6g" frameborder="0" allowfullscreen></iframe>
+
       <h4>After watching that video, please do </h4>
-      <a href="<%= Task.where({ :id => 1 }).pluck(:url)%>" class="btn btn-link">
-        <!-- I want to go to an external link -->
-        <%=Task.where({ :id => 1 }).pluck(:name) %></a>
+      <a href="tasks/<%= Task.where({ :id => 1 }).pluck(:id).at(0)%>" class="btn btn-link">
+        <%=Task.where({ :id => 1 }).pluck(:name).at(0) %></a>
         <% else %>
         <h3>
           You already finished
@@ -25,21 +26,21 @@
         <ul>
 
           <a href="<%=Task.where({ :id => num }).pluck(:url).at(0)%>" class="btn btn-link">
-            <!-- I want to go to an external link -->
             <%= num %> <%=Task.where({ :id => num }).pluck(:name).at(0) %></a>
 
-            <!-- <%=Submission.where({ :id => num,:user_id=>@user.id }).pluck(:created_at).at(0)%> ago -->
+            <%=Submission.where({ :id => num,:user_id=>@user.id }).pluck(:created_at).at(0)%> ago
             <!-- time_ago in words not working -->
           </ul>
 
           <% end %>
           <% end %>
           <h2>
-<%if @a==nil%>
-<p>
-We are happy to have you!
-</p>
-<% else %>
+            <%while @a.max<Task.count('id', :distinct => true) %>
+            <%if (@a.any?)==false%>
+            <p>
+              We are happy to have you! Enjoy the experience!
+            </p>
+            <% else %>
             Now you are ready to do
           </h2>
           <h2>
@@ -49,20 +50,17 @@ We are happy to have you!
             <%=Task.where({ :id => @a.max+1}).pluck(:description).at(0) %>
           </p>
 
-<% end %>
+          <h4> Check your progress in the course!</h4>
+          <div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: <%= (@a.max.to_f/Task.count('id', :distinct => true)*100).to_i%>%">
+              <%= (@a.max.to_f/Task.count('id', :distinct => true)*100).to_i%> % Complete
+            </div>
+          </div>
+          <% break %>
+          <% end %>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div class="container">
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <div class="progress">
-        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: <%= (@a.max.to_f/Task.count('id', :distinct => true)*100).to_i%>%">
-        <%= (@a.max.to_f/Task.count('id', :distinct => true)*100).to_i%> % Complete
-        </div>
-      </div>
-
-    </div>
-  </div>  </div>

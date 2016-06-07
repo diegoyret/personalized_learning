@@ -24,7 +24,7 @@ class SubmissionsController < ApplicationController
     @submission.url= params[:url]
 
     if @submission.save
-      redirect_to "/submissions", :notice => "Submission created successfully."
+      redirect_to "/welcome", :notice => "Submission created successfully."
     else
       render 'new'
     end
