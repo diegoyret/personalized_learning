@@ -1,4 +1,8 @@
 <div class="page-header">
+
+
+
+
   <h3>Submission #<%= @submission.id %></h3>
 </div>
 
@@ -32,3 +36,44 @@
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+
+    <h3>1 - Watch this video</h3>
+    <iframe width="560" height="315" src="<%= @submission.task.video_url %>" frameborder="0" allowfullscreen></iframe>
+
+    <h3>2 - Follow this guidelines</h3>
+
+    <p><%= @submission.task.description %></p>
+
+    <h3>3 - Read these resources</h3>
+
+    <div class="table-responsive">
+      <table class="table-">
+        <tr class="active">
+          <td>
+            <dl>
+              <dt><a target="_blank" href="<%= @submission.task.url %>"> Go to Resource 1</a></dt>
+              <dd><iframe width="560" height="315" src="<%= @submission.task.url %>" frameborder="1" allowfullscreen></iframe></dd>
+            </dl>
+          </td>
+          <td>
+            <dl>
+              <dt><a target="_blank" href="<%= @submission.task.external1 %>"> Go to Resource 2</a></dt>
+              <dd><iframe width="560" height="315" src="<%= @submission.task.external1 %>" frameborder="1" allowfullscreen></iframe></dd>
+            </dl>
+          </td>
+          <td>
+            <dl>
+              <dt><a target="_blank" href="<%= @submission.task.external2 %>"> Go to Resource 3</a></dt>
+              <dd><iframe width="560" height="315" src="<%= @submission.task.external2 %>" frameborder="1" allowfullscreen></iframe></dd>
+            </dl>
+          </td>
+        </tr>
+
+
+
+
+
+      </table>
+    </div>

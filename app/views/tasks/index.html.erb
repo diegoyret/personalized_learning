@@ -1,4 +1,8 @@
-bloquelass="page-header">
+<%@user.submitted_tasks.each do |task| %>
+
+<%@a.push(task.id) %>
+<% end %>
+
   <h1>
     Tasks
 
@@ -38,8 +42,13 @@ bloquelass="page-header">
 
 
         <td>
+<% if @a.max+1>=task.id || @user.name=="admin"  %>
+
 
           <a href="/tasks/<%= task.id %>" class="btn btn-primary">Show</a>
+          <% else %>
+          <a class="btn btn-danger">Not Avaliable yet</a>
+          <% end %>
           <%if @user.name=="admin"  %>
           <a href="/tasks/<%= task.id %>/edit" class="btn btn-warning">Edit</a>
           <a href="/delete_task/<%= task.id %>" class="btn btn-danger" rel="nofollow">Delete</a>

@@ -1,9 +1,11 @@
 <div class="page-header">
   <h1>
     Syllabus
+<% if @user.name=="admin" %>
+  <!-- true -->
 
     <a href="/bloques/new" class="btn btn-lg btn-success">New Module</a>
-
+<% end %>
   </h1>
 </div>
 
@@ -16,7 +18,7 @@
 
         <th>Description</th>
 
-        <th>Predecessor</th>
+        <!-- <th>Predecessor</th> -->
 
         <th>Actions</th>
       </tr>
@@ -24,11 +26,11 @@
       <% @bloques.each do |bloque| %>
       <tr>
 
-        <td><%= bloque.name %></td>
+        <td><%= bloque.id %> - <%= bloque.name %></td>
 
         <td><%= bloque.description %></td>
 
-        <td><%= bloque.predecessor %></td>
+        <!-- <td><%#= bloque.predecessor %></td> -->
 
         <td>
 

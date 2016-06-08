@@ -2,54 +2,48 @@
   <div class="row row-horizon">
     <div class="col-md-8 col-md-offset-2">
       <h1>Hi <%= @user.name.capitalize %>!</h1>
+      <h4> Check your progress in the course!</h4>
+
 
       <%@user.submitted_tasks.each do |task| %>
 
       <%@a.push(task.id) %>
       <% end %>
+      <div class="progress">
+        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="<%= (@a.max.to_f/Task.count('id', :distinct => true)*100).to_i%>" aria-valuemin="0" aria-valuemax="100" style="width: <%= (@a.max.to_f/Task.count('id', :distinct => true)*100).to_i%>%">
+          <%= (@a.max.to_f/Task.count('id', :distinct => true)*100).to_i%> % Complete
+        </div>
+      </div>
       <%@a.any?%>
       <%if @a.max==Task.count('id', :distinct => true)%>
-      <h1>Congratulations! You are a Full Stack Web Developer!!</h1>
+      <h1>Congratulations! You became a Full Stack Web Developer!!</h1>
+
+
+
+
       <%elsif (@a.any?)==false%>
       <h3>Welcome to APP Development!, You should start by understanding why is important to learn how code!</h3>
       <h4>Please watch this video</h4>
       <iframe width="560" height="315" src="https://www.youtube.com/embed/rtl9QG4qe6g" frameborder="0" allowfullscreen></iframe>
 
       <h4>After watching that video, please do </h4>
-      <a href="tasks/<%= Task.where({ :id => 1 }).pluck(:id).at(0)%>" class="btn btn-link">
-        <%=Task.where({ :id => 1 }).pluck(:name).at(0) %></a>
+      <a href="tasks/<%=Task.where({ :id =>  1}).pluck(:id).at(0)%>" class="btn btn-primary btn-lg" role="button"><%=Task.where({ :id => 1}).pluck(:name).at(0) %></a>
+      
         <% else %>
-        <h3>
-          You already finished
-        </h3>
-        <table class="table table-condensed">
-
-          <tr>
-
-            <th>Task</th>
-
-            <th>Date</th>
-
-          </tr>
-        <%@a.each do |num| %>
+<h2>
+        Now you are ready to do
+      </h2>
+        <h2>
 
 
+      <a href="tasks/<%=Task.where({ :id =>  @a.max+1}).pluck(:id).at(0)%>" class="btn btn-primary btn-lg" role="button"><%=Task.where({ :id => @a.max+1}).pluck(:name).at(0) %></a>
 
-          <tr class="active">
-            <td>
-              <a href="<%=Task.where({ :id => num }).pluck(:url).at(0)%>" class="btn btn-link">
-              <%= num %> <%=Task.where({ :id => num }).pluck(:name).at(0) %></a>
-            </td>
-<td>
-  <%=Submission.where({ :task_id => num,:user_id=>@user.id }).pluck(:created_at).at(0)%>
-</td>
+      </h2>
 
-</tr>
+      <p>
+        <%=Task.where({ :id => @a.max+1}).pluck(:description).at(0) %>
+      </p>
 
-
-
-          <% end %>
-</table>
           <% end %>
           <h2>
             <%#while @a.max<Task.count('id', :distinct => true) %>
@@ -57,24 +51,65 @@
             <p>
               We are happy to have you! Enjoy the experience!
             </p>
-            <% else %>
-            Now you are ready to do
-          </h2>
-          <h2>
-            <a href="tasks/<%=Task.where({ :id =>  @a.max+1}).pluck(:id).at(0)%>" class="btn btn-link"><%=Task.where({ :id => @a.max+1}).pluck(:name).at(0) %></a>
-          </h2>
-          <p>
-            <%=Task.where({ :id => @a.max+1}).pluck(:description).at(0) %>
-          </p>
+            <% elsif @a.max<Task.count('id', :distinct => true)  %>
 
-          <h4> Check your progress in the course!</h4>
-          <div class="progress">
-            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: <%= (@a.max.to_f/Task.count('id', :distinct => true)*100).to_i%>%">
-              <%= (@a.max.to_f/Task.count('id', :distinct => true)*100).to_i%> % Complete
-            </div>
-          </div>
-          <%# break %>
+          </h2>
+
+          <h3>
+            You already finished
+          </h3>
+          <table class="table table-condensed">
+
+            <tr>
+
+              <th>Task</th>
+
+              <th>Date</th>
+
+            </tr>
+          <%@a.each do |num| %>
+
+
+
+            <tr class="active">
+              <td>
+                <a href="<%=Task.where({ :id => num }).pluck(:url).at(0)%>" class="btn btn-link">
+                <%= num %> <%=Task.where({ :id => num }).pluck(:name).at(0) %></a>
+              </td>
+  <td>
+    <%=Submission.where({ :task_id => num,:user_id=>@user.id }).pluck(:created_at).at(0)%>
+  </td>
+
+  </tr>
+
+
+
+            <% end %>
+  </table>
+
+          <% else %>
           <% end %>
+
+
+
+          <%# break %>
+          <% if @a.max==Task.count('id', :distinct => true)  %>
+          <h2> What's next? </h2>
+          <div class="list-group">
+
+
+ <a href="https://generalassemb.ly/education/android-development-immersive" class="btn btn-primary btn-lg" role="button">Check out our ANDROID DEVELOPMENT IMMERSIVE COURSE! </a>
+
+ </div>
+ <div class="list-group">
+
+      <a href="https://generalassemb.ly/education/ios-development-immersive" class="btn btn-primary btn-lg" role="button">Check out our iOS DEVELOPMENT IMMERSIVE COURSE! </a></div>
+      <div class="list-group">
+
+         <a href="https://generalassemb.ly/education/android-development-immersive" class="btn btn-primary btn-lg" role="button">Check out our ANDROID DEVELOPMENT IMMERSIVE COURSE! </a>
+</div>
+          <% end %>
+
           <%# end %>
         </div>
       </div>

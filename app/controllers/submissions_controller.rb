@@ -1,6 +1,7 @@
 class SubmissionsController < ApplicationController
   def index
     @submissions = Submission.all
+    @user=current_user
   end
   def welcome
     @user = current_user
@@ -33,10 +34,12 @@ class SubmissionsController < ApplicationController
   end
 
   def edit
+
     @submission = Submission.find(params[:id])
   end
 
   def update
+    @user=current_user
     @submission = Submission.find(params[:id])
 
 

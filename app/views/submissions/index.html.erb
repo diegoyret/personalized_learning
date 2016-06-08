@@ -9,36 +9,88 @@
 
 <div class="row">
   <div class="col-md-12">
+    <% if @user.name=="admin" %>
+    <table class="table table-striped table-hover">
+      <tr>
+
+        <th>Task</th>
+<th>Student Name</th>
+        <th>Task Rating</th>
+
+        <th>Comments</th>
+        <th>Time Spent</th>
+        <th>Github Url</th>
+
+        <th>Actions</th>
+
+  <% @submissions.each do |submission| %>
+<tr>
+
+
+    <td>
+      <%= submission.task.name %>
+    </td>
+    <td>
+      <%= submission.user.name %>
+    </td>
+    <td>
+      <%= submission.task_rating %>
+    </td>
+    <td>
+      <%= submission.content %>
+    </td>
+    <td>
+      <%= submission.time_spent %>
+    </td>
+    <td><a href="<%= submission.url %>">Link</a>
+
+    </td>
+    <td>
+
+      <a href="/submissions/<%= submission.id %>" class="btn btn-primary">Show</a>
+      <a href="/submissions/<%= submission.id %>/edit" class="btn btn-warning">Edit</a>
+      <a href="/delete_submission/<%= submission.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+
+    </td>
+</tr>
+    <% end %>
+    <%else %>
+
     <table class="table table-striped table-hover">
       <tr>
 
         <th>Task</th>
 
-        <th>User</th>
+        <th>Task Rating</th>
 
-        <th>Graded</th>
+        <th>Comments</th>
+        <th>Time Spent</th>
+        <th>Github Url</th>
+
         <th>Actions</th>
 
-      </tr>
+      </tr> <%@user.submitted_tasks.each do |task| %>
 
-      <% @submissions.each do |submission| %>
+
       <tr>
 
-        <td><%= submission.task.name %></td>
+        <td> <%= task.name %></td>
 
-        <td><%= submission.user.name %></td>
-        <td><%= submission.task.graded %></td>
-
-
+        <td><%= Submission.where({ :task_id => task.id,:user=>@user.id }).pluck(:task_rating).at(0)%> </td>
+        <td><%# submission.task.graded %><%= Submission.where({ :task_id => task.id,:user=>@user.id }).pluck(:content).at(0)%></td>
+        <td><%# submission.task.graded %><%= Submission.where({ :task_id => task.id,:user=>@user.id }).pluck(:time_spent).at(0)%></td>
+        <td><%# submission.task.graded %><a href="<%= Submission.where({ :task_id => task.id,:user=>@user.id }).pluck(:url).at(0)%>">
+          Link</a></td>
         <td>
 
-          <a href="/submissions/<%= submission.id %>" class="btn btn-primary">Show</a>
-          <a href="/submissions/<%= submission.id %>/edit" class="btn btn-warning">Edit</a>
-          <a href="/delete_submission/<%= submission.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          <a href="/submissions/<%= Submission.where({ :task_id => task.id,:user=>@user.id }).pluck(:id).at(0) %>" class="btn btn-primary">Show</a>
+          <a href="/submissions/<%= Submission.where({ :task_id => task.id,:user=>@user.id }).pluck(:id).at(0) %>/edit" class="btn btn-warning">Edit</a>
+          <a href="/delete_submission/<%= Submission.where({ :task_id => task.id,:user=>@user.id }).pluck(:id).at(0) %>" class="btn btn-danger" rel="nofollow">Delete</a>
 
         </td>
       </tr>
       <% end %>
     </table>
+    <% end %>
   </div>
 </div>
