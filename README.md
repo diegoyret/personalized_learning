@@ -1,4 +1,4 @@
-The objective of my APP, personalized learning, is to provide orientation for students using a learning management system, in what task of a course to do next, based on their past activity.
+Personalized learning tells students what to study next, based on their past activity on a learninm managament system (i.e canvas). The idea is that the app helps students follow each step of the learnig course knowing exactly what to do next without losing any task in the process...
 
 a) When a student starts the course, there is a Welcome message with a motivational video explaining why learning to code is important
 
@@ -18,4 +18,4 @@ g) There is a different type of user, named "admin", that has a different use of
       a) Add, edit, delete new modules and tasks (student's can't)
       b) The can view all submissions of all students (students can only see theirs)
 
-      So far, the logic is based on a condition related to if current_user.name=="admin", but the next step would be to create a table of admins with their user.id so that is easier to add more than one admin.
+So far, the logic is based on a condition related to if current_user.name=="admin", but the next step would be to create a table of admins with their user.id so that is easier to add more than one admin.
