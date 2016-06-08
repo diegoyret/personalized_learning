@@ -38,8 +38,9 @@ class TasksController < ApplicationController
     @task.predecessor = params[:predecessor]
 
     @task.url = params[:url]
-
-
+      @task.video_url = params[:video_url]
+@task.external1 = params[:external1]
+@task.external2 = params[:external2]
 
     if @task.save
       redirect_to "/tasks", :notice => "Task created successfully."
@@ -68,9 +69,9 @@ class TasksController < ApplicationController
     @task.predecessor = params[:predecessor]
 
     @task.url = params[:url]
-
-
-
+@task.video_url = params[:video_url]
+@task.external1 = params[:external1]
+@task.external2 = params[:external2]
     if @task.save
       redirect_to "/tasks", :notice => "Task updated successfully."
     else

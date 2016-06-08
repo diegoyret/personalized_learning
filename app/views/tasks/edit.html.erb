@@ -65,7 +65,7 @@ bloquealidation failure messages -->
 
       <!-- Label and input for type -->
 
-      
+
 
 
       <!-- Label and input for graded -->
@@ -107,8 +107,33 @@ bloquealidation failure messages -->
         <input type="text" id="url" name="url" placeholder="Url" class="form-control" value="<%= @task.url %>">
 
       </div>
+      <div class="form-group">
+        <label for="video_url" class="control-label">
+          Video Url
+        </label>
 
 
+        <input type="text" id="video_url" name="video_url" placeholder="Video Url" class="form-control" value="<%= @task.video_url %>">
+
+      </div>
+      <div class="form-group">
+        <label for="external1" class="control-label">
+          External Url 1
+        </label>
+
+
+        <input type="text" id="external1" name="external1" placeholder="external1" class="form-control" value="<%= @task.external1 %>">
+
+      </div>
+      <div class="form-group">
+        <label for="external2" class="control-label">
+          External Url 2
+        </label>
+
+
+        <input type="text" id="external2" name="external2" placeholder="external2" class="form-control" value="<%= @task.external2 %>">
+
+      </div>
 
       <button class="btn btn-warning">
         Update Task

@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row row-horizon">
     <div class="col-md-8 col-md-offset-2">
       <h1>Hi <%= @user.name.capitalize %>!</h1>
 
@@ -7,7 +7,7 @@
 
       <%@a.push(task.id) %>
       <% end %>
-      <%=@a.any?%>
+      <%@a.any?%>
       <%if @a.max==Task.count('id', :distinct => true)%>
       <h1>Congratulations! You are a Full Stack Web Developer!!</h1>
       <%elsif (@a.any?)==false%>
@@ -22,20 +22,37 @@
         <h3>
           You already finished
         </h3>
+        <table class="table table-condensed">
+
+          <tr>
+
+            <th>Task</th>
+
+            <th>Date</th>
+
+          </tr>
         <%@a.each do |num| %>
-        <ul>
 
-          <a href="<%=Task.where({ :id => num }).pluck(:url).at(0)%>" class="btn btn-link">
-            <%= num %> <%=Task.where({ :id => num }).pluck(:name).at(0) %></a>
 
-            <%=Submission.where({ :id => num,:user_id=>@user.id }).pluck(:created_at).at(0)%> ago
-            <!-- time_ago in words not working -->
-          </ul>
+
+          <tr class="active">
+            <td>
+              <a href="<%=Task.where({ :id => num }).pluck(:url).at(0)%>" class="btn btn-link">
+              <%= num %> <%=Task.where({ :id => num }).pluck(:name).at(0) %></a>
+            </td>
+<td>
+  <%=Submission.where({ :task_id => num,:user_id=>@user.id }).pluck(:created_at).at(0)%>
+</td>
+
+</tr>
+
+
 
           <% end %>
+</table>
           <% end %>
           <h2>
-            <%while @a.max<Task.count('id', :distinct => true) %>
+            <%#while @a.max<Task.count('id', :distinct => true) %>
             <%if (@a.any?)==false%>
             <p>
               We are happy to have you! Enjoy the experience!
@@ -56,9 +73,9 @@
               <%= (@a.max.to_f/Task.count('id', :distinct => true)*100).to_i%> % Complete
             </div>
           </div>
-          <% break %>
+          <%# break %>
           <% end %>
-          <% end %>
+          <%# end %>
         </div>
       </div>
     </div>

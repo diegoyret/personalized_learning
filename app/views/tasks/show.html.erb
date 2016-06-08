@@ -1,118 +1,121 @@
-<div class="page-header">
-  <h1><%= @task.name %></h1>
-  </div>
-
-<div class="row">
-  <div class="col-md-12">
-    <dl class="dl-horizontal">
-
-      <dt>Module</dt>
-      <dd><%= @task.bloque.name %> (<%= @task.bloque_id %>)</dd>
-
-
-      <dt>Description</dt>
-      <dd><%= @task.description %></dd>
-
-
-
-
-
-      <dt>Graded</dt>
-      <dd><%= @task.graded %></dd>
-
-
-      <dt>Predecessor</dt>
-      <dd><%= @task.predecessor %></dd>
-
-
-      <dt>Url</dt>
-      <dd><%= @task.url %></dd>
-
-
-    </dl>
-
-    <div class="btn-group btn-group-justified">
-
-      <a href="/tasks" class="btn btn-primary">
-        Back
-      </a>
-      <a href="/tasks/<%= @task.id %>/edit" class="btn btn-warning">
-        Edit
-      </a>
-      <a href="/delete_task/<%= @task.id %>" class="btn btn-danger" rel="nofollow">
-        Delete
-      </a>
-
-    </div>
-  </div>
-</div>
-<% if @submission.errors.any? %>
-  <% @submission.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-warning">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
 
 <div class="page-header">
-  <h3>Submit "<%= @task.name %>"</h3>
+  <h1>Let's do "<%= @task.name %>", <%= @user.name.capitalize %>! </h1>
 </div>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-10 col-md-offset-1">
 
-    <form action="/create_submission" method="post">
-      <!-- Hidden input for authenticity token to protect from forgery -->
-      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+    <h3>1 - Watch this video</h3>
+    <iframe width="560" height="315" src="<%= @task.video_url %>" frameborder="0" allowfullscreen></iframe>
+
+    <h3>2 - Follow this guidelines</h3>
+
+    <p><%= @task.description %></p>
+
+    <h3>3 - Read these resources</h3>
+
+    <div class="table-responsive">
+      <table class="table-">
+        <tr class="active">
+          <td>
+            <dl>
+              <dt><a target="_blank" href="<%= @task.url %>"> Go to Resource 1</a></dt>
+              <dd><iframe width="560" height="315" src="<%= @task.url %>" frameborder="1" allowfullscreen></iframe></dd>
+            </dl>
+          </td>
+          <td>
+            <dl>
+              <dt><a target="_blank" href="<%= @task.external1 %>"> Go to Resource 2</a></dt>
+              <dd><iframe width="560" height="315" src="<%= @task.external1 %>" frameborder="1" allowfullscreen></iframe></dd>
+            </dl>
+          </td>
+          <td>
+            <dl>
+              <dt><a target="_blank" href="<%= @task.external2 %>"> Go to Resource 3</a></dt>
+              <dd><iframe width="560" height="315" src="<%= @task.external2 %>" frameborder="1" allowfullscreen></iframe></dd>
+            </dl>
+          </td>
+        </tr>
 
 
 
-      <!-- Label and input for task_id -->
+
+
+      </table>
+    </div>
+
+
+    <h3>4 - Submit "<%= @task.name %>"</h3>
+
+
+    <div class="row">
+      <div class="col-md-10">
+
+        <form action="/create_submission" method="post">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+          <!-- Label and input for task_id -->
+
+          <div class="form-group">
+            <label for="task_id" class="control-label">
+
+            </label>
+
+            <input type="hidden" id="task_id" name="task_id" placeholder="Task" class="form-control" value="<%= @task.id %>">
+
+          </div>
+          <!-- Label and input for user_id -->
+
+          <div class="form-group">
+            <label for="user_id" class="control-label">
+
+            </label>
+
+
+            <input type="hidden" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @user.id %>">
+
+          </div>
+
+          <div class="form-group">
+            <label for="content" class="control-label">
+              Submission Box
+            </label>
+
+
+            <input type="text" id="content" name="content" placeholder="Comment on the main challenges you encountered and what you liked and what you didn't enjoyed much" class="form-control" value="<%= @submission.content %>">
+
+          </div>
+          <div class="form-group">
+            <label for="url" class="control-label">
+              Github URL
+            </label>
+
+
+            <input type="string" id="url" name="url" placeholder="Paste the link of your Github pull request" class="form-control" value="<%= @submission.url %>">
+
+          </div>
+
+        <div class="form-group">
+          <label for="task_rating" class="control-label">
+            Task Rating <small>(Please, tell us how you liked this task so that we can improve the content)</small>
+          </label>
+
+  <%= select_tag(:task_rating, options_for_select([1,2,3,4,5]), :class => "form-control") %>
+          <!-- <input type="integer" id="task_rating" name="task_rating" placeholder="Tell us how you liked this task so that we can improve the content" class="form-control" value="<%#= @submission.task_rating %>"> -->
+
+        </div>
 
       <div class="form-group">
-        <label for="task_id" class="control-label">
-
+        <label for="time_spent" class="control-label">
+          Time Spent (hs) <small>(Please, tell us the aproximate time you spent working on this so that we can adjust workload)</small>
         </label>
+        <%= select_tag(:time_spent, options_for_select([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]), :class => "form-control") %>
 
-
-        <input type="hidden" id="task_id" name="task_id" placeholder="Task" class="form-control" value="<%= @task.id %>">
+        <!-- <input type="integer" id="time_spent" name="time_spent" placeholder="Tell us the aproximate time you spent working on this so that we can adjust workload" class="form-control" value="<%#= @submission.time_spent %>"> -->
 
       </div>
-
-
-
-      <!-- Label and input for user_id -->
-
-      <div class="form-group">
-        <label for="user_id" class="control-label">
-
-        </label>
-
-
-        <input type="hidden" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @user.id %>">
-
-      </div>
-
-      <div class="form-group">
-        <label for="content" class="control-label">
-        Submission Box
-        </label>
-
-
-        <input type="text" id="content" name="content" placeholder="Comment on the main challenges you encountered and the aproximate time it took you to finish" class="form-control" value="<%= @submission.content %>">
-
-      </div>
-      <div class="form-group">
-        <label for="content" class="control-label">
-        Github URL
-        </label>
-
-
-        <input type="string" id="url" name="url" placeholder="Past the link of your Github pull request" class="form-control" value="<%= @submission.url %>">
-
-      </div>
-
 
       <button class="btn btn-success">
         Submit "<%= @task.name %>"
@@ -123,6 +126,33 @@
 
 
     </form>
-
+    <% if @submission.errors.any? %>
+    <% @submission.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-warning">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%=message %>
+    </div>
+    <% end %>
+    <% end %>
   </div>
+</div>
+</div>
+</div>
+</div>
+<%if @user.name=="admin"  %>
+<div class="btn-group btn-group-justified">
+
+  <a href="/tasks" class="btn btn-primary">
+    Back
+  </a>
+
+  <a href="/tasks/<%= @task.id %>/edit" class="btn btn-warning">
+    Edit
+  </a>
+  <a href="/delete_task/<%= @task.id %>" class="btn btn-danger" rel="nofollow">
+    Delete
+  </a>
+  <% else %>
+
+  <% end %>
 </div>

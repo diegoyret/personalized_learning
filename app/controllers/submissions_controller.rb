@@ -22,7 +22,8 @@ class SubmissionsController < ApplicationController
     @submission.user_id = params[:user_id]
     @submission.content= params[:content]
     @submission.url= params[:url]
-
+    @submission.task_rating= params[:task_rating]
+  @submission.time_spent= params[:time_spent]
     if @submission.save
       redirect_to "/welcome", :notice => "Submission created successfully."
     else
@@ -42,9 +43,9 @@ class SubmissionsController < ApplicationController
     @submission.task_id = params[:task_id]
 
     @submission.user_id = params[:user_id]
-
-
-
+    @submission.url= params[:url]
+@submission.task_rating= params[:task_rating]
+@submission.time_spent= params[:time_spent]
     if @submission.save
       redirect_to "/submissions", :notice => "Submission updated successfully."
     else

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160606181529) do
+ActiveRecord::Schema.define(version: 20160607233556) do
 
   create_table "bloques", force: :cascade do |t|
     t.string   "name"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20160606181529) do
     t.datetime "updated_at"
     t.text     "content"
     t.string   "url"
+    t.integer  "task_rating"
+    t.integer  "time_spent"
   end
 
   create_table "tasks", force: :cascade do |t|
