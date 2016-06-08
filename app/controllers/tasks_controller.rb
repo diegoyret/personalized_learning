@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.all
     @user=current_user
-    @a=[]
+    @a=[0]
   end
 
   def show

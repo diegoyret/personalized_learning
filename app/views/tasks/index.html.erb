@@ -2,11 +2,19 @@
 
 <%@a.push(task.id) %>
 <% end %>
+<%# @a - [0] %>
+<%if @a==[0] %>
+  <!-- truelsee -->
+  <% else %>
+  <%@a = @a-[0] %>
+<%end %>
 
   <h1>
     Tasks
+<% if @user.name=="admin" %>
+<a href="/tasks/new" class="btn btn-lg btn-success">New Task</a>
+<% end %>
 
-    <a href="/tasks/new" class="btn btn-lg btn-success">New Task</a>
 
   </h1>
 </div>
@@ -42,13 +50,18 @@
 
 
         <td>
-<% if @a.max+1>=task.id || @user.name=="admin"  %>
+
+
+
+          <%if @a.max+1>=task.id || @user.name=="admin"  %>
 
 
           <a href="/tasks/<%= task.id %>" class="btn btn-primary">Show</a>
+
           <% else %>
           <a class="btn btn-danger">Not Avaliable yet</a>
           <% end %>
+
           <%if @user.name=="admin"  %>
           <a href="/tasks/<%= task.id %>/edit" class="btn btn-warning">Edit</a>
           <a href="/delete_task/<%= task.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
