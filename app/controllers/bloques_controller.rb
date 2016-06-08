@@ -1,6 +1,7 @@
 class BloquesController < ApplicationController
   def index
     @bloques = Bloque.all
+    @user=current_user
   end
 
   def show

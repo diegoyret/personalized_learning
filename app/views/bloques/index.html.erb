@@ -33,9 +33,11 @@
         <td>
 
           <a href="/bloques/<%= bloque.id %>" class="btn btn-primary">Show</a>
+          <%if @user.name=="admin"  %>
           <a href="/bloques/<%= bloque.id %>/edit" class="btn btn-warning">Edit</a>
           <a href="/delete_bloque/<%= bloque.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
-
+<% else %>
+<% end %>
         </td>
       </tr>
       <% end %>
